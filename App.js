@@ -23,7 +23,7 @@ const App = () => {
         name="GenderSelection"
         component={GenderSelection}
         options={{
-          headerTitle: "Select a gender",
+          headerTitle: "Gender selects",
         }}
       />
       <UsersStack.Screen

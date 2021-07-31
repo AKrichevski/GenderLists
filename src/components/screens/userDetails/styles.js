@@ -25,6 +25,32 @@ export default (styles = StyleSheet.create({
   },
 
   button: {
-    marginBottom: 15,
+    borderWidth: 1,
+    marginTop: 5
+  },
+
+  content: {
+    alignItems: "center",
+    justifyContent: "center"
+  },
+
+  title: {
+    fontSize: 22,
+    fontWeight: "600",
+    color: "#3a3a3a"
+  },
+
+  text: {
+    fontSize: 22,
+  },
+
+  textInput: {
+    fontSize: 22,
+    height: 35,
+    borderWidth: 0.5
+  },
+
+  image: {
+    width: "100%", height: 300, borderRadius: 15
   }
 }));

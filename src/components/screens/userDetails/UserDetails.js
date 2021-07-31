@@ -7,7 +7,7 @@ import {
   Platform,
   ScrollView,
   Text,
-  TextInput,
+  TextInput, TouchableOpacity,
   View,
 } from "react-native";
 import { useDispatch } from "react-redux";
@@ -21,7 +21,7 @@ export default ({ route, navigation }) => {
   const [lastName, setLastName] = useState(route.params.user.name.last);
   const [email, setEmail] = useState(route.params.user.email);
   const [editable, setEditable] = useState(false);
-  const [pageOffset, setPageOffset] = useState(false);
+  const [pageOffset, setPageOffset] = useState(0);
   const dispatch = useDispatch();
   const gender = route.params.user.gender;
   const uuid = route.params.user.login.uuid;
@@ -64,36 +64,46 @@ export default ({ route, navigation }) => {
   return (
     <View style={styles.viewContainer} onLayout={onLayout}>
       <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : null}
+        behavior={Platform.OS === "ios" ? 'height' : null}
         keyboardVerticalOffset={pageOffset}
         style={styles.container}>
         <ScrollView>
           <View>
             <View style={styles.imageContainer}>
-              <Image source={{ uri: picture }} style={{ width: "100%", height: 300, borderRadius: 15 }} />
+              <Image source={{ uri: picture }} style={styles.image} />
               <View>
                 {editable && <EditPictureField saveImage={setPicture} />}
               </View>
             </View>
             <View style={styles.userInfo}>
               <View>
-                <Text>First Name:</Text>
-                <TextInput value={firstName} editable={editable} onChangeText={setFirstName} />
+                <Text style={styles.text}>First Name:</Text>
+                <TextInput style={styles.textInput} value={firstName} editable={editable} onChangeText={setFirstName} />
               </View>
               <View>
-                <Text>Last Name:</Text>
-                <TextInput value={lastName} editable={editable} onChangeText={setLastName} />
+                <Text style={styles.text}>Last Name:</Text>
+                <TextInput style={styles.textInput} value={lastName} editable={editable} onChangeText={setLastName} />
               </View>
               <View>
-                <Text>Email:</Text>
-                <TextInput value={email} editable={editable} onChangeText={setEmail} />
+                <Text style={styles.text}>Email:</Text>
+                <TextInput style={styles.textInput} value={email} editable={editable} onChangeText={setEmail} />
               </View>
             </View>
             <View style={styles.buttons}>
               <View style={styles.button}>
-                <Button title={editable ? "SAVE" : "EDIT"} onPress={switchEditState} color={editable ? "green" : "blue"} />
+                <TouchableOpacity onPress={switchEditState} style={styles.button}>
+                  <View style={[styles.content, editable ? {backgroundColor: "green"} : {backgroundColor: "blue"}]}>
+                    <Text style={styles.title}>{editable ? "SAVE" : "EDIT"}</Text>
+                  </View>
+                </TouchableOpacity>
+                {!editable && <TouchableOpacity onPress={deleteUserFromList} style={[styles.button, {backgroundColor: "red"}]}>
+                  <View style={styles.content}>
+                    <Text style={styles.title}>{"DELETE"}</Text>
+                  </View>
+                </TouchableOpacity>}
               </View>
-              {!editable && <Button title={"DELETE"} onPress={deleteUserFromList} color={"red"} />}
+              <View style={styles.button}>
+              </View>
             </View>
           </View>
         </ScrollView>
