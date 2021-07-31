@@ -1,5 +1,6 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 
+const isIOS = Platform.OS === 'ios';
 let styles;
 export default (styles = StyleSheet.create({
   viewContainer: {
@@ -41,12 +42,12 @@ export default (styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: 22,
+    fontSize: isIOS ? 22 : 14,
   },
 
   textInput: {
-    fontSize: 22,
-    height: 35,
+    fontSize: isIOS ? 22 : null,
+    height: isIOS ? 35 : null,
     borderWidth: 0.5
   },
 
